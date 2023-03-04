@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>game</title>
+    <link rel="stylesheet" href="./static/css/style.css">
+</head>
+<body>
+
+    <h1>○×ゲーム</h1>
+
+    <table>
+        {% for i in range(3) %}
+        <tr>
+            {% for j in range(3) %}
+            <td id="square">
+                {% if board[i*3+j] == '○' %}
+                <p>○</p>
+                {% elif board[i*3+j] == '×' %}
+                <p>×</p>
+                {% else %}
+                <form id='button' method='post' action="">
+                    <input type="hidden" value="{{ i }}" name="row"></input>
+                    <input type="hidden" value="{{ j }}" name="col"></input>
+                    <input type="hidden" value="{{ board[i+j] }}" name="position"></input>
+                    <input type="hidden" value="{{ board }}" name="board"></input>
+                    <input type="submit" value="-" name="cell"></input>
+                </form>
+                {% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        
+    </table>
+
+    <div class="winner">
+        {% if winner == '○' %}
+        <p>
+            ○の勝ち
+        </p>
+        {% elif winner == '×' %}
+        <p>
+            ×の勝ち
+        </p>
+        {% endif %}
+    </div>
+
+    <div class="reset">
+        <a href="/game">
+            reset
+        </a>
+    </div>
+
+    <div class="back">
+        <a href="/">
+            Topに戻る
+        </a>
+    </div>
+
+</body>
+</html>
